@@ -15,6 +15,8 @@ tree.o: tree.c tree.h tree-node.h
 tree-node.o: tree-node.c tree-node.h
 	$(CC) $(CFLAGS) -c tree-node.c
 
+charset.o: charset.c charset.h
+
 clean:
 	rm -f *.o tests_tree
 

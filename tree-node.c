@@ -122,20 +122,31 @@ tree_node_delete_node (TreeNode *node,
 }
 
 static uint
-tree_node_get_size_helper (TreeNode *node)
+tree_node_get_count_helper (TreeNode *node,
+                            bool      get_size)
 {
+  uint count = 1;
   if (node == NULL)
     return 0;
 
-  return node->count
-         + tree_node_get_size_helper (node->left)
-         + tree_node_get_size_helper (node->right);
+  if (get_size)
+    count = node->count;
+
+  return count
+         + tree_node_get_count_helper (node->left, get_size)
+         + tree_node_get_count_helper (node->right, get_size);
 }
 
 size_t
 tree_node_get_size (TreeNode *node)
 {
-  return (size_t)tree_node_get_size_helper (node);
+  return (size_t)tree_node_get_count_helper(node, true);
+}
+
+size_t
+tree_node_count_nodes (TreeNode *node)
+{
+  return (size_t)tree_node_get_count_helper(node, false);
 }
 
 void

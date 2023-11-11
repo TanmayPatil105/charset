@@ -44,6 +44,12 @@ tree_get_size (Tree *tree)
   return tree_node_get_size (tree->root);
 }
 
+size_t
+tree_get_n_nodes (Tree *tree)
+{
+  return tree_node_count_nodes (tree->root);
+}
+
 uint
 tree_get_char_count (Tree *tree,
                      char  key)
