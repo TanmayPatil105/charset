@@ -11,7 +11,7 @@ This implementation from scratch is done for learning purposes.
 - [ ] Buffer the input text in a string and flush it when needed
 ```c
 // We will buffer the characters when we call _set_text
-// We need to separetely implement this, we internally append it a buf_string
+// We need not separetely implement this, we internally append it a buf_string
 void charset_buffer_text (Charset *charset);
 
 /*
