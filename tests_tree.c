@@ -47,5 +47,7 @@ int main() {
     printf ("%sTest: tree_replace -> Failed%s\n", RED, COLOR_RESET);
   }
 
+  //FIXME: Add TreeIterator test
+
   return 0;
 }

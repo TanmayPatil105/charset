@@ -164,3 +164,40 @@ tree_node_replace (TreeNode *node,
 {
   node->count = new_count;
 }
+
+static void
+inorder (TreeNode      *node,
+         TreeNodeValue *tree_inorder,
+         int           *index)
+{
+  TreeNodeValue value;
+  if (node == NULL)
+    return;
+
+  inorder (node->left, tree_inorder, index);
+
+  value = (TreeNodeValue) {
+    .c = node->key,
+    .count = node->count,
+  };
+  tree_inorder[*index++] = value;
+
+  inorder (node->right, tree_inorder, index);
+}
+
+TreeNodeValue*
+tree_node_get_inorder (TreeNode *node)
+{
+  int index = 0;
+  TreeNodeValue *tree_inorder;
+  size_t n_nodes = tree_node_count_nodes (node);
+
+  if (n_nodes == 0)
+    return NULL;
+
+  tree_inorder = (TreeNodeValue *) malloc (sizeof (TreeNodeValue) * n_nodes);
+
+  inorder (node, tree_inorder, &index);
+
+  return tree_inorder;
+}

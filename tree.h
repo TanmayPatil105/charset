@@ -8,21 +8,22 @@ typedef struct Tree {
   int ref_count;
 } Tree;
 
-Tree*     tree_new            (void);
-void      tree_insert         (Tree* tree,
-                               char  key,
-                               uint  count);
-void      tree_replace        (Tree* tree,
-                               char  key,
-                               uint  count);
-TreeNode *tree_lookup_node    (Tree *tree,
-                               char  key);
-void      tree_delete         (Tree* tree,
-                               char  key);
-size_t    tree_get_size       (Tree *tree);
-size_t    tree_get_n_nodes    (Tree *tree);
-uint      tree_get_char_count (Tree *tree,
-                               char  key);
-TreeNode* tree_find_key       (Tree *tree,
-                               char  key);
-Tree     *tree_clone          (Tree  *tree);
+Tree*         tree_new            (void);
+void          tree_insert         (Tree* tree,
+                                   char  key,
+                                   uint  count);
+void          tree_replace        (Tree* tree,
+                                   char  key,
+                                   uint  count);
+TreeNode     *tree_lookup_node    (Tree *tree,
+                                   char  key);
+void          tree_delete         (Tree* tree,
+                                   char  key);
+size_t        tree_get_size       (Tree *tree);
+size_t        tree_get_n_nodes    (Tree *tree);
+uint          tree_get_char_count (Tree *tree,
+                                   char  key);
+TreeNode     *tree_find_key       (Tree *tree,
+                                   char  key);
+Tree         *tree_clone          (Tree  *tree);
+TreeIterator *tree_iter_init      (Tree  *tree);

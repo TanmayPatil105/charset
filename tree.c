@@ -82,3 +82,15 @@ tree_lookup (Tree *tree,
 {
   return tree_node_get_node (tree->root, key);
 }
+
+TreeIterator*
+tree_iter_init (Tree *tree)
+{
+  TreeIterator *iter = (TreeIterator *) malloc (sizeof (TreeIterator));
+
+  iter->size = tree_node_count_nodes (tree->root);
+  iter->inorder = tree_node_get_inorder (tree->root);
+  iter->index = 0;
+
+  return iter;
+}
