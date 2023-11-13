@@ -19,6 +19,7 @@ TreeNode *tree_node_insert         (TreeNode *node,
                                     uint      count);
 TreeNode *tree_node_get_node       (TreeNode *node,
                                     char      key);
+uint      tree_node_get_count      (TreeNode *node);
 TreeNode *tree_node_delete_node    (TreeNode *node,
                                     char      key);
 size_t    tree_node_get_size       (TreeNode *node);

@@ -1,4 +1,5 @@
 #include "charset.h"
+#include "tree-node.h"
 
 Charset*
 charset_new ()
@@ -15,7 +16,25 @@ void
 charset_add_text (Charset    *charset,
                   const char *text)
 {
+  char c;
+  const char *str = text;
 
+  for (c = *str; c != '\0'; c = *++str)
+    {
+      TreeNode *node;
+
+      node = tree_lookup_node (charset->tree, c);
+
+      if (node == NULL)
+        {
+          tree_insert (charset->tree, c, 1);
+        }
+      else
+        {
+          uint count = tree_node_get_count (node);
+          tree_replace (charset->tree, c, count + 1);
+        }
+    }
 }
 
 uint
@@ -48,5 +67,28 @@ bool
 charset_remove_text (Charset    *charset,
                      const char *text)
 {
+  char c;
+  const char *str = text;
 
+  if (!charset_contains_text (charset, text))
+    return false;
+
+  for (c = *str; c != '\0'; c = *++str)
+    {
+      TreeNode *node;
+
+      node = tree_lookup_node (charset->tree, c);
+
+      if (node != NULL)
+        {
+          uint count = tree_node_get_count (node);
+
+          if (count == 1)
+            tree_delete (charset->tree, c);
+          else
+            tree_replace (charset->tree, c, count - 1);
+        }
+    }
+
+  return true;
 }

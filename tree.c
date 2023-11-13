@@ -13,7 +13,7 @@ tree_new ()
 void
 tree_insert (Tree *tree,
              char  key,
-             int   count)
+             uint  count)
 {
   tree->root = tree_node_insert (tree->root, key, count);
 }
@@ -21,7 +21,7 @@ tree_insert (Tree *tree,
 void
 tree_replace (Tree *tree,
               char  key,
-              int   new_count)
+              uint  new_count)
 {
   TreeNode *node = tree_node_get_node (tree->root, key);
 
@@ -29,6 +29,20 @@ tree_replace (Tree *tree,
     {
       tree_node_replace (node, new_count);
     }
+}
+
+TreeNode*
+tree_lookup_node (Tree *tree,
+                  char  key)
+{
+  TreeNode *node;
+
+  node = tree_node_get_node (tree->root, key);
+
+  if (node == NULL)
+    return NULL;
+
+  return node;
 }
 
 void

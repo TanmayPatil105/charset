@@ -47,6 +47,15 @@ tree_node_get_node (TreeNode *node,
   return tree_node_get_node (node->right, key);
 }
 
+uint
+tree_node_get_count (TreeNode *node)
+{
+  if (node == NULL)
+    return 0;
+
+  return node->count;
+}
+
 static void
 tree_node_copy (TreeNode *src_node,
                 TreeNode *dst_node)
