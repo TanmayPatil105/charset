@@ -49,5 +49,7 @@ int main() {
 
   //FIXME: Add TreeIterator test
 
+  tree_unref (tree);
+
   return 0;
 }

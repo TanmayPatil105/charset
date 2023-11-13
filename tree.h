@@ -26,4 +26,5 @@ uint          tree_get_char_count (Tree *tree,
 TreeNode     *tree_find_key       (Tree *tree,
                                    char  key);
 Tree         *tree_clone          (Tree  *tree);
+void          tree_unref          (Tree  *tree);
 TreeIterator *tree_iter_init      (Tree  *tree);

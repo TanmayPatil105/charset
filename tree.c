@@ -83,6 +83,13 @@ tree_lookup (Tree *tree,
   return tree_node_get_node (tree->root, key);
 }
 
+void
+tree_unref (Tree *tree)
+{
+  // Iterator and clean up nodes
+  tree_node_free (tree->root);
+}
+
 TreeIterator*
 tree_iter_init (Tree *tree)
 {

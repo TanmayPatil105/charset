@@ -165,6 +165,18 @@ tree_node_replace (TreeNode *node,
   node->count = new_count;
 }
 
+void
+tree_node_free (TreeNode *node)
+{
+  if (node == NULL)
+    return;
+
+  tree_node_free (node->left);
+  tree_node_free (node->right);
+
+  free (node);
+}
+
 static void
 inorder (TreeNode      *node,
          TreeNodeValue *tree_inorder,
