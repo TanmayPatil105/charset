@@ -38,4 +38,7 @@ size_t         tree_node_count_nodes    (TreeNode *node);
 void           tree_node_replace        (TreeNode *node,
                                          uint      count);
 void           tree_node_free           (TreeNode *node);
+TreeNode      *tree_node_clone          (TreeNode *node);
+bool           tree_node_equal          (TreeNode *node_a,
+                                         TreeNode *node_b);
 TreeNodeValue *tree_node_get_inorder    (TreeNode *node);

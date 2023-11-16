@@ -197,6 +197,44 @@ inorder (TreeNode      *node,
   inorder (node->right, tree_inorder, index);
 }
 
+TreeNode*
+tree_node_create_clone (TreeNode *node)
+{
+  TreeNode *clone = tree_node_new (node->key, node->count);
+
+  return clone;
+}
+
+TreeNode*
+tree_node_clone (TreeNode *node)
+{
+  if (node == NULL)
+    return NULL;
+
+  TreeNode *clone = tree_node_create_clone (node);
+
+  clone->left = tree_node_clone (node->left);
+  clone->right = tree_node_clone (node->right);
+
+  return clone;
+}
+
+bool
+tree_node_equal (TreeNode *node_a,
+                 TreeNode *node_b)
+{
+  if (node_a == NULL && node_b == NULL)
+    return true;
+
+  if (node_a == NULL || node_b == NULL)
+    return false;
+
+  return (node_a->key == node_b->key)
+         && (node_a->count == node_b->count)
+         && (tree_node_equal (node_a->left, node_b->left))
+         && (tree_node_equal (node_a->right, node_b->right));
+}
+
 TreeNodeValue*
 tree_node_get_inorder (TreeNode *node)
 {

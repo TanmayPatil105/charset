@@ -76,11 +76,22 @@ tree_get_char_count (Tree *tree,
   return node->count;
 }
 
-TreeNode*
-tree_lookup (Tree *tree,
-             char  key)
+Tree*
+tree_clone (Tree *tree)
 {
-  return tree_node_get_node (tree->root, key);
+  Tree *clone = tree_new ();
+
+  clone->root = tree_node_clone (tree->root);
+
+  return clone;
+}
+
+bool
+tree_equal (Tree *tree_a,
+            Tree *tree_b)
+{
+  return tree_node_equal (tree_a->root,
+                          tree_b->root);
 }
 
 void

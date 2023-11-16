@@ -7,6 +7,7 @@
 
 int main() {
   Tree *tree = tree_new ();
+  Tree *cloned_tree;
 
   tree_insert (tree, 'c', 2);
   tree_insert (tree, 'd', 3);
@@ -45,6 +46,14 @@ int main() {
     printf ("%sTest: tree_replace 2 -> Passed%s\n", GRN, COLOR_RESET);
   } else {
     printf ("%sTest: tree_replace -> Failed%s\n", RED, COLOR_RESET);
+  }
+
+  cloned_tree = tree_clone (tree);
+
+  if (tree_equal (tree, cloned_tree) == true) {
+    printf ("%sTest: tree_clone -> Passed%s\n", GRN, COLOR_RESET);
+  } else {
+    printf ("%sTest: tree_clone -> Failed%s\n", RED, COLOR_RESET);
   }
 
   //FIXME: Add TreeIterator test

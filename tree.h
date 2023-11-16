@@ -23,8 +23,8 @@ size_t        tree_get_size       (Tree *tree);
 size_t        tree_get_n_nodes    (Tree *tree);
 uint          tree_get_char_count (Tree *tree,
                                    char  key);
-TreeNode     *tree_find_key       (Tree *tree,
-                                   char  key);
 Tree         *tree_clone          (Tree  *tree);
+bool          tree_equal          (Tree  *tree_a,
+                                   Tree  *tree_b);
 void          tree_unref          (Tree  *tree);
 TreeIterator *tree_iter_init      (Tree  *tree);
