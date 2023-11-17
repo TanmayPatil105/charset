@@ -56,11 +56,46 @@ charset_get_size (Charset *charset)
   return tree_get_size (charset->tree);
 }
 
+Charset*
+charset_clone (Charset *charset)
+{
+  Charset *cloned = (Charset *) malloc(sizeof (Charset));
+
+  cloned->tree = tree_clone (charset->tree);
+  cloned->ref_count = 0;
+
+  return cloned;
+}
+
 bool
 charset_contains_text (Charset    *charset,
                        const char *text)
 {
+  char c;
+  const char *str = text;
+  Charset *cloned_charset = charset_clone (charset);
 
+  for (c = *str; c != '\0'; c = *++str)
+    {
+      TreeNode *node;
+      node = tree_lookup_node (cloned_charset->tree, c);
+
+      if (node == NULL)
+        {
+          uint count = tree_node_get_count (node);
+
+          if (count == 1)
+            tree_delete (cloned_charset->tree, c);
+          else
+            tree_replace (cloned_charset->tree, c, count - 1);
+        }
+      else
+        {
+          return false;
+        }
+    }
+
+  return true;
 }
 
 bool
