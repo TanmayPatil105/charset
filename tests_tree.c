@@ -1,64 +1,120 @@
 #include <stdio.h>
+#include <assert.h>
 #include "tree.h"
 
-#define RED "\e[0;31m"
-#define GRN "\e[0;32m"
-#define COLOR_RESET "\e[0m"
+/*
+ * Our tree for tesing looks like
+ *
+ *                  {c, 2}
+ *                /       \
+ *             {a, 1}    {d, 3}
+ *                 \
+ *                {b, 4}
+ *
+ */
 
-int main() {
+void
+test_tree_insert (void)
+{
   Tree *tree = tree_new ();
-  Tree *cloned_tree;
 
   tree_insert (tree, 'c', 2);
   tree_insert (tree, 'd', 3);
   tree_insert (tree, 'a', 1);
   tree_insert (tree, 'b', 4);
 
-  if (tree_get_size (tree) == 10) {
-    printf ("%sTest: tree_get_size -> Passed%s\n", GRN, COLOR_RESET);
-  } else {
-    printf ("%sTest: tree_get_size -> Failed%s\n", RED, COLOR_RESET);
-  }
+  assert (tree_get_size (tree) == 10);
+  assert (tree_get_char_count (tree, 'a') == 1);
+  assert (tree_get_char_count (tree, 'b') == 4);
+  assert (tree_get_char_count (tree, 'c') == 2);
+  assert (tree_get_char_count (tree, 'd') == 3);
 
-  if (tree_get_char_count (tree, 'a') == 1) {
-    printf ("%sTest: tree_get_char_count 1 -> Passed%s\n", GRN, COLOR_RESET);
-  } else {
-    printf ("%sTest: tree_get_char_count 1 -> Failed%s\n", RED, COLOR_RESET);
-  }
+  tree_unref (tree);
+}
 
-  if (tree_get_char_count (tree, 'b') == 4) {
-    printf ("%sTest: tree_get_char_count 2 -> Passed%s\n", GRN, COLOR_RESET);
-  } else {
-    printf ("%sTest: tree_get_char_count 2 -> Failed%s\n", RED, COLOR_RESET);
-  }
+void
+test_tree_delete (void)
+{
+  Tree *tree = tree_new ();
+
+  tree_insert (tree, 'c', 2);
+  tree_insert (tree, 'd', 3);
+  tree_insert (tree, 'a', 1);
+  tree_insert (tree, 'b', 4);
+
+  assert (tree_get_char_count (tree, 'a') == 1);
 
   tree_delete (tree, 'a');
 
-  if (tree_get_char_count (tree, 'a') == 0) {
-    printf ("%sTest: tree_delete -> Passed%s\n", GRN, COLOR_RESET);
-  } else {
-    printf ("%sTest: tree_delete -> Failed%s\n", RED, COLOR_RESET);
-  }
+  assert (tree_get_char_count (tree, 'a') == 0);
 
-  tree_replace (tree, 'b', 6);
+  /* Making sure we are still retaining the root */
+  tree_delete (tree, 'c');
 
-  if (tree_get_char_count (tree, 'b') == 6) {
-    printf ("%sTest: tree_replace 2 -> Passed%s\n", GRN, COLOR_RESET);
-  } else {
-    printf ("%sTest: tree_replace -> Failed%s\n", RED, COLOR_RESET);
-  }
-
-  cloned_tree = tree_clone (tree);
-
-  if (tree_equal (tree, cloned_tree) == true) {
-    printf ("%sTest: tree_clone -> Passed%s\n", GRN, COLOR_RESET);
-  } else {
-    printf ("%sTest: tree_clone -> Failed%s\n", RED, COLOR_RESET);
-  }
-
-  //FIXME: Add TreeIterator test
+  assert (tree_get_char_count (tree, 'd') == 3);
 
   tree_unref (tree);
+}
+
+void
+test_tree_replace (void)
+{
+  Tree *tree = tree_new ();
+
+  tree_insert (tree, 'c', 2);
+  tree_insert (tree, 'd', 3);
+  tree_insert (tree, 'a', 1);
+  tree_insert (tree, 'b', 4);
+
+  assert (tree_get_char_count (tree, 'a') == 1);
+  tree_replace (tree, 'a', 5);
+  assert (tree_get_char_count (tree, 'a') == 5);
+
+  assert (tree_get_char_count (tree, 'b') == 4);
+  tree_replace (tree, 'b', 1);
+  assert (tree_get_char_count (tree, 'b') == 1);
+
+  tree_unref (tree);
+}
+
+// Those to whom evil is done,
+// shall do evil in return
+
+void
+test_tree_clone_equal (void)
+{
+  Tree *tree_a, *tree_b;
+
+  tree_a = tree_new ();
+
+  tree_insert (tree_a, 'c', 2);
+  tree_insert (tree_a, 'd', 3);
+  tree_insert (tree_a, 'a', 1);
+  tree_insert (tree_a, 'b', 4);
+
+  tree_b = tree_clone (tree_a);
+
+  assert (tree_equal (tree_a, tree_b) == true);
+
+  tree_replace (tree_b, 'a', 4);
+
+  assert (tree_equal (tree_a, tree_b) == false);
+
+  tree_unref (tree_a);
+  tree_unref (tree_b);
+}
+
+void
+test_tree_iterator (void)
+{
+
+}
+
+int main() {
+  test_tree_insert ();
+  test_tree_delete ();
+  test_tree_replace ();
+  test_tree_clone_equal ();
 
   return 0;
 }
