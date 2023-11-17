@@ -5,6 +5,7 @@ tree_new ()
 {
   Tree* tree = (struct Tree*) malloc(sizeof (struct Tree));
 
+  tree->root = NULL;
   tree->ref_count = 0;
 
   return tree;
