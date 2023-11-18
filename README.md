@@ -21,4 +21,5 @@ void charset_buffer_text (Charset *charset);
  */
 const char *charset_flush_text (Charset *charset);
 ```
+- [ ] Write my own memory allocator (malloc)
 - [ ] ...
