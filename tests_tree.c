@@ -13,9 +13,23 @@
  *
  */
 
+#define BLACK      "\033[0;30m"
+#define GREEN      "\033[0;32m"
+#define RESET      "\033[0;m"
+
+void
+log_message (int num, char *message)
+{
+  if (num == 1)
+    printf ("%sLOGS:%s START of %s%s%s\n", GREEN, RESET, BLACK, message, RESET);
+  else if (num == 2)
+    printf ("%sLOGS:%s END of %s%s%s\n", GREEN, RESET, BLACK, message, RESET);
+}
+
 void
 test_tree_insert (void)
 {
+  log_message (1, "test_tree_insert");
   Tree *tree = tree_new ();
 
   tree_insert (tree, 'c', 2);
@@ -30,11 +44,13 @@ test_tree_insert (void)
   assert (tree_get_char_count (tree, 'd') == 3);
 
   tree_unref (tree);
+  log_message (2, "test_tree_insert");
 }
 
 void
 test_tree_delete (void)
 {
+  log_message (1, "test_tree_delete");
   Tree *tree = tree_new ();
 
   tree_insert (tree, 'c', 2);
@@ -54,11 +70,13 @@ test_tree_delete (void)
   assert (tree_get_char_count (tree, 'd') == 3);
 
   tree_unref (tree);
+  log_message (2, "test_tree_insert");
 }
 
 void
 test_tree_replace (void)
 {
+  log_message (1, "test_tree_replace");
   Tree *tree = tree_new ();
 
   tree_insert (tree, 'c', 2);
@@ -75,6 +93,7 @@ test_tree_replace (void)
   assert (tree_get_char_count (tree, 'b') == 1);
 
   tree_unref (tree);
+  log_message (2, "test_tree_replace");
 }
 
 // Those to whom evil is done,
@@ -83,6 +102,7 @@ test_tree_replace (void)
 void
 test_tree_clone_equal (void)
 {
+  log_message (1, "test_tree_clone_equal");
   Tree *tree_a, *tree_b;
 
   tree_a = tree_new ();
@@ -102,6 +122,7 @@ test_tree_clone_equal (void)
 
   tree_unref (tree_a);
   tree_unref (tree_b);
+  log_message (2, "test_tree_clone_equal");
 }
 
 void

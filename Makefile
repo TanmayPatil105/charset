@@ -15,6 +15,9 @@ tree.o: tree.c tree.h tree-node.h
 tree-node.o: tree-node.c tree-node.h
 	$(CC) $(CFLAGS) -c tree-node.c
 
+tests: tests_tree
+	@exec ./tests_tree
+
 charset.o: charset.c charset.h
 
 clean:
