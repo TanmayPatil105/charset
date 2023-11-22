@@ -1,13 +1,13 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 
-all: tests_tree
+all: tree_tests
 
-tests_tree: tests_tree.o tree.o tree-node.o
-	$(CC) $(CFLAGS) -o tests_tree tests_tree.o tree.o tree-node.o
+tree_tests: tree_tests.o tree.o tree-node.o
+	$(CC) $(CFLAGS) -o tree_tests tree_tests.o tree.o tree-node.o
 
-tests_tree.o: tests_tree.c tree.h
-	$(CC) $(CFLAGS) -c tests_tree.c
+tree_tests.o: tree_tests.c tree.h
+	$(CC) $(CFLAGS) -c tree_tests.c
 
 tree.o: tree.c tree.h tree-node.h
 	$(CC) $(CFLAGS) -c tree.c
@@ -15,11 +15,11 @@ tree.o: tree.c tree.h tree-node.h
 tree-node.o: tree-node.c tree-node.h
 	$(CC) $(CFLAGS) -c tree-node.c
 
-tests: tests_tree
-	@exec ./tests_tree
+tests: tree_tests
+	@exec ./tree_tests
 
 charset.o: charset.c charset.h
 
 clean:
-	rm -f *.o tests_tree
+	rm -f *.o tree_tests
 
