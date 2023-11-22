@@ -29,5 +29,5 @@ tests: tree_tests charset_tests
 	@exec ./charset_tests
 
 clean:
-	rm -f *.o tree_tests
+	rm -f *.o tree_tests charset_tests
 
