@@ -1,6 +1,10 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 
+ifdef DEBUG
+CFLAGS += -DDEBUG=1
+endif
+
 all: tree_tests charset_tests
 
 charset_tests: charset_tests.o charset.o tree.o tree-node.o

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "charset.h"
 #include "tree-node.h"
 
@@ -56,6 +57,14 @@ charset_get_size (Charset *charset)
   return tree_get_size (charset->tree);
 }
 
+bool
+charset_equal (Charset *charset_a,
+               Charset *charset_b)
+{
+  return tree_equal (charset_a->tree,
+                     charset_b->tree);
+}
+
 Charset*
 charset_clone (Charset *charset)
 {
@@ -80,7 +89,7 @@ charset_contains_text (Charset    *charset,
       TreeNode *node;
       node = tree_lookup_node (cloned_charset->tree, c);
 
-      if (node == NULL)
+      if (node != NULL)
         {
           uint count = tree_node_get_count (node);
 

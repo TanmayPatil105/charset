@@ -16,6 +16,8 @@ uint     charset_get_char_count (Charset    *charset,
                                  char        c);
 size_t   charset_get_n_chars    (Charset    *charset);
 size_t   charset_get_size       (Charset    *charset);
+bool     charset_equal          (Charset    *charset_a,
+                                 Charset    *charset_b);
 Charset *charset_clone          (Charset    *charset);
 bool     charset_contains_text  (Charset    *charset,
                                  const char *text);

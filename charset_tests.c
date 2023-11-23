@@ -19,19 +19,49 @@ log_message (int num, char *message)
 void
 test_charset_add_text (void)
 {
+  log_message (1, "test_charset_add_text");
 
+  Charset *charset = charset_new ();
+
+  charset_add_text (charset, "ABCDEFGHIJKLMNOPQRSTUVWXYZABCD");
+
+  assert (charset_get_n_chars (charset) == 26);
+  assert (charset_get_size (charset) == 30);
+  assert (charset_get_char_count (charset, 'A') == 2);
+  assert (charset_get_char_count (charset, 'D') == 2);
+  assert (charset_get_char_count (charset, 'Z') == 1);
+
+  log_message (2, "test_charset_add_text");
 }
 
 void
 test_charset_contains_text (void)
 {
+  log_message (1, "test_charset_contains_text");
 
+  Charset *charset = charset_new ();
+
+  charset_add_text (charset, "AABBCCDDEEFFG");
+
+  assert (charset_contains_text (charset, "ABCDEFG"));
+  assert (!charset_contains_text (charset, "TEXT"));
+  log_message (2, "test_charset_contains_text");
 }
 
 void
 test_charset_remove_text (void)
 {
+  log_message (1, "test_charset_remove_text");
 
+  Charset *charset = charset_new ();
+
+  charset_add_text (charset, "AABBCCDDEEFFG");
+
+  assert (!charset_remove_text (charset, "TEXT"));
+  assert (charset_remove_text (charset, "ABCDEFG"));
+  assert (charset_get_size (charset) == 6);
+
+  log_message (2, "test_charset_remove_text");
 }
 
 // Who am I?
@@ -42,14 +72,25 @@ test_charset_remove_text (void)
 void
 test_charset_clone (void)
 {
+  log_message (1, "test_charset_clone");
 
+  Charset *charset_a, *charset_b;
+
+  charset_a = charset_new ();
+  charset_add_text (charset_a, "AABBCCDDEEFFGG");
+
+  charset_b = charset_clone (charset_a);
+
+  assert (charset_equal (charset_a, charset_b));
+
+  log_message (2, "test_charset_clone");
 }
 
 int main() {
   test_charset_add_text ();
+  test_charset_clone ();
   test_charset_contains_text ();
   test_charset_remove_text ();
-  test_charset_clone ();
 
   return 0;
 }
