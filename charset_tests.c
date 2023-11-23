@@ -58,8 +58,8 @@ test_charset_remove_text (void)
   charset_add_text (charset, "AABBCCDDEEFFG");
 
   assert (!charset_remove_text (charset, "TEXT"));
-  assert (charset_remove_text (charset, "ABCDEFG"));
-  assert (charset_get_size (charset) == 6);
+  assert (charset_remove_text (charset, "ABCDEF"));
+  assert (charset_get_size (charset) == 7);
 
   log_message (2, "test_charset_remove_text");
 }

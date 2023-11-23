@@ -67,6 +67,12 @@ tree_node_copy (TreeNode *src_node,
   dst_node->count = src_node->count;
 }
 
+/*
+ * FIXME: Clean up pointers
+ * BUG: charset_remove_text failing at get_size due to pointers
+ * pointing to garbage memory, which was not freed during remove_text
+ *
+ * /
 TreeNode*
 tree_node_delete_node (TreeNode *node,
                        char      key)
