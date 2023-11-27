@@ -198,7 +198,7 @@ inorder (TreeNode      *node,
     .c = node->key,
     .count = node->count,
   };
-  tree_inorder[*index++] = value;
+  tree_inorder[(*index)++] = value;
 
   inorder (node->right, tree_inorder, index);
 }

@@ -139,5 +139,5 @@ tree_node_next (TreeIterator *iter)
       .count = -1,
     };
 
-  return iter->inorder[iter->index];
+  return iter->inorder[iter->index++];
 }
