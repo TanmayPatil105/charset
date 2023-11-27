@@ -113,3 +113,31 @@ tree_iter_init (Tree *tree)
 
   return iter;
 }
+
+// it's race against the watch
+// but we don't wanna watch
+
+bool
+tree_iter_has_next (TreeIterator *iter)
+{
+  if (iter &&
+      (size_t)iter->index < iter->size)
+    return true;
+
+  return false;
+}
+
+/*
+ * Must be called after calling `tree_iter_has_next`
+ */
+TreeNodeValue
+tree_node_next (TreeIterator *iter)
+{
+  if (iter == NULL)
+    return (TreeNodeValue) {
+      .c = 0,
+      .count = -1,
+    };
+
+  return iter->inorder[iter->index];
+}
