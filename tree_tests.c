@@ -126,9 +126,46 @@ test_tree_clone_equal (void)
 }
 
 void
+assert_value (TreeNodeValue value, char c, uint count)
+{
+  assert (value.c == c);
+  assert (value.count == count);
+}
+
+void
 test_tree_iterator (void)
 {
+  log_message (1, "test_tree_iterator");
+  Tree *tree = tree_new ();
+  TreeIterator *iter;
+  TreeNodeValue value;
 
+  tree_insert (tree, 'c', 2);
+  tree_insert (tree, 'd', 3);
+  tree_insert (tree, 'a', 1);
+  tree_insert (tree, 'b', 4);
+
+  iter = tree_iter_init (tree);
+
+  assert (tree_iter_has_next (iter) == true);
+  value =  tree_node_next (iter);
+  assert_value (value, 'a', 1);
+
+  assert (tree_iter_has_next (iter) == true);
+  value =  tree_node_next (iter);
+  assert_value (value, 'b', 4);
+
+  assert (tree_iter_has_next (iter) == true);
+  value =  tree_node_next (iter);
+  assert_value (value, 'c', 2);
+
+  assert (tree_iter_has_next (iter) == true);
+  value =  tree_node_next (iter);
+  assert_value (value, 'd', 3);
+
+  assert (tree_iter_has_next (iter) == false);
+
+  log_message (2, "test_tree_iterator");
 }
 
 int main() {
@@ -136,6 +173,7 @@ int main() {
   test_tree_delete ();
   test_tree_replace ();
   test_tree_clone_equal ();
+  test_tree_iterator ();
 
   return 0;
 }
