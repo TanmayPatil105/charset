@@ -30,3 +30,4 @@ void          tree_unref          (Tree         *tree);
 TreeIterator *tree_iter_init      (Tree         *tree);
 bool          tree_iter_has_next  (TreeIterator *iter);
 TreeNodeValue tree_node_next      (TreeIterator *iter);
+void          tree_iter_free      (TreeIterator *iter);

@@ -141,3 +141,12 @@ tree_node_next (TreeIterator *iter)
 
   return iter->inorder[iter->index++];
 }
+
+void
+tree_iter_free (TreeIterator *iter)
+{
+  if (iter == NULL)
+    return;
+
+  free (iter->inorder);
+}

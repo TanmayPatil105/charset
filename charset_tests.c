@@ -45,6 +45,7 @@ test_charset_contains_text (void)
 
   assert (charset_contains_text (charset, "ABCDEFG"));
   assert (!charset_contains_text (charset, "TEXT"));
+
   log_message (2, "test_charset_contains_text");
 }
 

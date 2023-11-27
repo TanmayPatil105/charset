@@ -44,6 +44,7 @@ test_tree_insert (void)
   assert (tree_get_char_count (tree, 'd') == 3);
 
   tree_unref (tree);
+
   log_message (2, "test_tree_insert");
 }
 
@@ -70,6 +71,7 @@ test_tree_delete (void)
   assert (tree_get_char_count (tree, 'd') == 3);
 
   tree_unref (tree);
+
   log_message (2, "test_tree_insert");
 }
 
@@ -93,6 +95,7 @@ test_tree_replace (void)
   assert (tree_get_char_count (tree, 'b') == 1);
 
   tree_unref (tree);
+
   log_message (2, "test_tree_replace");
 }
 
@@ -122,6 +125,7 @@ test_tree_clone_equal (void)
 
   tree_unref (tree_a);
   tree_unref (tree_b);
+
   log_message (2, "test_tree_clone_equal");
 }
 
@@ -164,6 +168,8 @@ test_tree_iterator (void)
   assert_value (value, 'd', 3);
 
   assert (tree_iter_has_next (iter) == false);
+
+  tree_iter_free (iter);
 
   log_message (2, "test_tree_iterator");
 }
