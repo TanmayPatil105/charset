@@ -31,6 +31,8 @@ test_charset_add_text (void)
   assert (charset_get_char_count (charset, 'D') == 2);
   assert (charset_get_char_count (charset, 'Z') == 1);
 
+  charset_free (charset);
+
   log_message (2, "test_charset_add_text");
 }
 
@@ -45,6 +47,8 @@ test_charset_contains_text (void)
 
   assert (charset_contains_text (charset, "ABCDEFG"));
   assert (!charset_contains_text (charset, "TEXT"));
+
+  charset_free (charset);
 
   log_message (2, "test_charset_contains_text");
 }
@@ -61,6 +65,8 @@ test_charset_remove_text (void)
   assert (!charset_remove_text (charset, "TEXT"));
   assert (charset_remove_text (charset, "ABCDEF"));
   assert (charset_get_size (charset) == 7);
+
+  charset_free (charset);
 
   log_message (2, "test_charset_remove_text");
 }
@@ -83,6 +89,9 @@ test_charset_clone (void)
   charset_b = charset_clone (charset_a);
 
   assert (charset_equal (charset_a, charset_b));
+
+  charset_free (charset_a);
+  charset_free (charset_b);
 
   log_message (2, "test_charset_clone");
 }

@@ -14,6 +14,12 @@ charset_new ()
 }
 
 void
+charset_free (Charset *charset)
+{
+  tree_unref (charset->tree);
+}
+
+void
 charset_add_text (Charset    *charset,
                   const char *text)
 {

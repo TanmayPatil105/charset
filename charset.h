@@ -10,6 +10,7 @@ typedef struct Charset {
 } Charset;
 
 Charset *charset_new            (void);
+void     charset_free           (Charset    *charset);
 void     charset_add_text       (Charset    *charset,
                                  const char *text);
 uint     charset_get_char_count (Charset    *charset,
