@@ -170,9 +170,13 @@ test_tree_iterator (void)
   assert (tree_iter_has_next (iter) == false);
 
   tree_iter_free (iter);
+  tree_unref (tree);
 
   log_message (2, "test_tree_iterator");
 }
+
+// Ignorant, Unimaginative people
+// consumed by self-interest
 
 int main() {
   test_tree_insert ();
